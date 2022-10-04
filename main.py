@@ -1,26 +1,74 @@
 import mysql.connector
 from mysql.connector import Error
 
-pw = "password"
+import tkinter
+from tkinter import *
+from tkinter import simpledialog
+from tkinter.simpledialog import askinteger
 
-def create_server_connection(host_name, user_name, user_password):
-    while True:
-        connection = None
-        try:
-            connection = mysql.connector.connect(
-                host=host_name,
+
+window = Tk()
+
+#window.withdraw()
+
+#user = simpledialog.askstring("Connection", "Veuillez entrer l'utilisateur :", parent=window, show='*')
+#password = simpledialog.askstring("Connection", "Veuillez entrer le mot de passe :", parent=window, show='*')
+user = "user"
+password = "password"
+cb = ""
+
+#window.deiconify()
+
+window.geometry("300x300")
+label = Label(window, text="SQL Actions")
+label.pack()
+
+
+Button(window, text='SELECT * FROM NSI.Film',command=lambda *args: sqlexec(1)).pack()
+
+Button(window, text='SELECT * FROM NSI.Pays',command=lambda *args: sqlexec(1)).pack()
+
+Button(window, text='SELECT * FROM NSI.PaysFilm',command=lambda *args: sqlexec(1)).pack()
+
+
+
+def sqlexec(exec_action):
+    if exec_action == 1:
+        global sql_action
+        sql_action = 'SELECT * FROM NSI.Film'
+        window.destroy()
+
+
+window.mainloop()
+
+
+connection = mysql.connector.connect(
+                host="164.132.67.138",
                 database="NSI",
-                user=user_name,
-                passwd=user_password
+                user=user,
+                passwd=password
             )
-            print("Connection Effectuée")
-            cursor = connection.cursor()
-            result = cursor.execute(input("SQL :"))
-            print(cursor.fetchall())
-        except Error as err:
-            print(f"Error: '{err}'")
-            
 
-    return connection
+cursor = connection.cursor()
+print(sql_action)
+result = cursor.execute(sql_action)
+cb = cursor.fetchall()
+print(cb)
 
-connection = create_server_connection("164.132.67.138", "user", pw)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
