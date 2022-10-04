@@ -26,14 +26,22 @@ label.pack()
 
 Button(window, text='SELECT * FROM NSI.Film',command=lambda *args: sqlexec(1)).pack()
 
-Button(window, text='SELECT * FROM NSI.Pays',command=lambda *args: sqlexec(1)).pack()
+Button(window, text='SELECT * FROM NSI.Pays',command=lambda *args: sqlexec(2)).pack()
 
-Button(window, text='SELECT * FROM NSI.PaysFilm',command=lambda *args: sqlexec(1)).pack()
+Button(window, text='SELECT * FROM NSI.PaysFilm',command=lambda *args: sqlexec(3)).pack()
 
 
 
 def sqlexec(exec_action):
     if exec_action == 1:
+        global sql_action
+        sql_action = 'SELECT * FROM NSI.Film'
+        window.destroy()
+    elif exec_action == 2:
+        global sql_action
+        sql_action = 'SELECT * FROM NSI.Film'
+        window.destroy()
+    elif exec_action == 3:
         global sql_action
         sql_action = 'SELECT * FROM NSI.Film'
         window.destroy()
